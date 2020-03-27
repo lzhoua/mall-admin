@@ -1,0 +1,1 @@
+// declare const 'react-router-dom': any
