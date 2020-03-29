@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, Layout } from 'antd';
-import { AppstoreOutlined, MailOutlined } from '@ant-design/icons';
-// import { withRouter } from 'react-router-dom'
-
+import { useHistory } from 'react-router-dom';
+import { 
+  HomeOutlined, 
+  AppstoreOutlined, 
+  AccountBookOutlined, 
+  CarryOutOutlined, 
+  UserOutlined 
+} from '@ant-design/icons';
+ 
 const { SubMenu } = Menu;
 const { Header, Sider } = Layout;
 
 interface Props {
   collapsed: boolean
-  history: any
 }
 
 interface SideConfig {
@@ -23,13 +28,13 @@ interface SideConfig {
 const sideConfig: SideConfig[] = [
   {
     key: 'home',
-    icon: AppstoreOutlined,
+    icon: HomeOutlined,
     name: '首页',
     limit: true,
     path: '/home',
   }, {
     key: 'commodity_admin',
-    icon: MailOutlined,
+    icon: AppstoreOutlined,
     name: '商品管理',
     limit: true,
     path: '/',
@@ -44,19 +49,19 @@ const sideConfig: SideConfig[] = [
     ]
   }, {
     key: 'order_admin',
-    icon: AppstoreOutlined,
+    icon: CarryOutOutlined,
     name: '订单管理',
     limit: true,
     path: '/',
   }, {
     key: 'activity_admin',
-    icon: AppstoreOutlined,
+    icon: AccountBookOutlined,
     name: '活动管理',
     limit: true,
     path: '/',
   }, {
     key: 'account_admin',
-    icon: AppstoreOutlined,
+    icon: UserOutlined,
     name: '账号管理',
     limit: true,
     path: '/',
@@ -64,7 +69,7 @@ const sideConfig: SideConfig[] = [
 ]
 
 function SideBar (props: Props) {
-  const { collapsed, history } = props
+  const { collapsed } = props
   const [memuList, setMenuList]: [SideConfig[], any] = useState([{
     key: '',
     icon: '',
@@ -73,26 +78,27 @@ function SideBar (props: Props) {
     path: '',
     subMenu: []
   }])
+  let history = useHistory()
 
   useEffect(() => {
     setMenuList(sideConfig)
   }, [])
 
   const onPushRouter = (path: string) => {
-    console.log(path, history)
-    // props.history(path)
+    console.log(path)
+    history.push(path)
   }
 
   return (
     <Sider 
-      theme='light' 
+      theme='dark' 
       collapsed={collapsed}
       collapsible
       >
-      <Header className='side-header'>
+      <Header style={{padding: '0px'}}>
       </Header>
       <Menu
-        theme='light'
+        theme='dark'
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         mode="inline"
